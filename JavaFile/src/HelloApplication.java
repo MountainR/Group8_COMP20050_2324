@@ -1,6 +1,7 @@
 package test.demo;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,8 +34,20 @@ public class HelloApplication extends Application {
         Pane row6 = createRow("1", "2", "3", "4", "5", "6");
         Pane row7 = createRow("1", "2", "3", "4", "5");
 
+
         VBox pane = new VBox(row1, row2, row3, row4, row5, row6, row7);
         pane.setAlignment(Pos.CENTER);
+        VBox.setMargin(row1, new Insets(-10, -10, -10, -10));
+        VBox.setMargin(row2, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row3, new Insets(-10, -10, -10, -10));
+        VBox.setMargin(row4, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row5, new Insets(-10, -10, -10, -10));
+        VBox.setMargin(row6, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row7, new Insets(-10, -10, -10, -10));
+
+
+
+
         pane.setStyle("-fx-background-color: #37474f; -fx-padding: 20;");
 
         Scene scene = new Scene(pane);
