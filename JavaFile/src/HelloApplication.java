@@ -27,27 +27,27 @@ public class HelloApplication extends Application {
     public void start(Stage stage) {
 
         // just some text
-        Pane row1 = createRow("1", "2", "3", "4", "5");
-        Pane row2 = createRow("1", "2", "3", "4", "5", "6");
-        Pane row3 = createRow("1", "2", "3", "4", "5", "6", "7");
-        Pane row4 = createRow("1", "2", "3", "4", "5", "6", "7", "8");
-        Pane row5 = createRow("1", "2", "3", "4", "5", "6", "7", "8", "9");
-        Pane row6 = createRow("1", "2", "3", "4", "5", "6", "7", "8");
-        Pane row7 = createRow("1", "2", "3", "4", "5", "6", "7");
-        Pane row8 = createRow("1", "2", "3", "4", "5", "6");
-        Pane row9 = createRow("1", "2", "3", "4", "5");
+        Pane row1 = createRow(5);
+        Pane row2 = createRow(6);
+        Pane row3 = createRow(7);
+        Pane row4 = createRow(8);
+        Pane row5 = createRow(9);
+        Pane row6 = createRow(8);
+        Pane row7 = createRow(7);
+        Pane row8 = createRow(6);
+        Pane row9 = createRow(5);
 
 
         VBox pane = new VBox(row1, row2, row3, row4, row5, row6, row7, row8, row9);
-        VBox.setMargin(row1, new Insets(-29, -29, -29, -29));
+        VBox.setMargin(row1, new Insets(-26, -26, -26, -26));
         VBox.setMargin(row2, new Insets(0, 0, 0, 0));
-        VBox.setMargin(row3, new Insets(-29, -29, -29, -29));
+        VBox.setMargin(row3, new Insets(-26, -26, -26, -26));
         VBox.setMargin(row4, new Insets(0, 0, 0, 0));
-        VBox.setMargin(row5, new Insets(-29, -29, -29, -29));
+        VBox.setMargin(row5, new Insets(-26, -26, -26, -26));
         VBox.setMargin(row6, new Insets(0, 0, 0, 0));
-        VBox.setMargin(row7, new Insets(-29, -29, -29, -29));
+        VBox.setMargin(row7, new Insets(-26, -26, -26, -26));
         VBox.setMargin(row8, new Insets(0, 0, 0, 0));
-        VBox.setMargin(row9, new Insets(-29, -29, -29, -29));
+        VBox.setMargin(row9, new Insets(-26, -26, -26, -26));
 
 
         pane.setAlignment(Pos.CENTER);
@@ -59,18 +59,19 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    private static Pane createRow(String... texts) {
+    private static Pane createRow(int n) {
         HBox pane = new HBox();
         pane.setAlignment(Pos.CENTER);
 
-        Arrays.stream(texts).map(HelloApplication::createStar)
-                .forEach(pane.getChildren()::add);
+        for (int i = 0; i < n; i++) {
+            pane.getChildren().add(createStar());
+        }
 
         return pane;
     }
 
-    private static Pane createStar(String text) {
-        int halfEdge = 25;
+    private static Pane createStar() {
+        int halfEdge = 22;
         Polygon star = new Polygon(0, halfEdge, 1.73*halfEdge, 0,
                 3.46*halfEdge, halfEdge, 3.46*halfEdge, 3*halfEdge,
                 1.73*halfEdge, 4*halfEdge, 0, 3*halfEdge,
@@ -85,12 +86,8 @@ public class HelloApplication extends Application {
         star.setScaleX(1.04);
         star.setScaleY(1.0);
 
-        Label label = new Label(text);
-        label.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        label.setTextFill(Color.BLACK);
-
         StackPane pane = new StackPane();
-        pane.getChildren().addAll(star, label);
+        pane.getChildren().addAll(star);
 
         return pane;
     }
