@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example.demo_javafx;
+package com.example.javafx_0216;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,10 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -30,51 +27,85 @@ public class HexagonGrid extends Application {
     }
 
     public void start(Stage stage) {
-        Pane row1 = createRow("1", "2", "3", "4", "5", "6");
-        Pane row2 = createRow("1", "2", "3", "4", "5", "6", "7");
-        Pane row3 = createRow("1", "2", "3", "4", "5", "6", "7", "8");
-        Pane row4 = createRow("1", "2", "3", "4", "5", "6", "7", "8", "9");
-        Pane row5 = createRow("1", "2", "3", "4", "5", "6", "7", "8");
-        Pane row6 = createRow("1", "2", "3", "4", "5", "6", "7");
-        Pane row7 = createRow("1", "2", "3", "4", "5", "6");
-        VBox pane = new VBox(new Node[]{row1, row2, row3, row4, row5, row6, row7});
-        VBox.setMargin(row1, new Insets(-10.0, -10.0, -10.0, -10.0));
-        VBox.setMargin(row2, new Insets(0.0, 0.0, 0.0, 0.0));
-        VBox.setMargin(row3, new Insets(-10.0, -10.0, -10.0, -10.0));
-        VBox.setMargin(row4, new Insets(0.0, 0.0, 0.0, 0.0));
-        VBox.setMargin(row5, new Insets(-10.0, -10.0, -10.0, -10.0));
-        VBox.setMargin(row6, new Insets(0.0, 0.0, 0.0, 0.0));
-        VBox.setMargin(row7, new Insets(-10.0, -10.0, -10.0, -10.0));
+        // just some text
+        Pane row1 = createRow(5);
+        Pane row2 = createRow(6);
+        Pane row3 = createRow(7);
+        Pane row4 = createRow(8);
+        Pane row5 = createRow(9);
+        Pane row6 = createRow(8);
+        Pane row7 = createRow(7);
+        Pane row8 = createRow(6);
+        Pane row9 = createRow(5);
+
+        VBox pane = new VBox(row1, row2, row3, row4, row5, row6, row7, row8, row9);
+        VBox.setMargin(row1, new Insets(-26, -26, -26, -26));
+        VBox.setMargin(row2, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row3, new Insets(-26, -26, -26, -26));
+        VBox.setMargin(row4, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row5, new Insets(-26, -26, -26, -26));
+        VBox.setMargin(row6, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row7, new Insets(-26, -26, -26, -26));
+        VBox.setMargin(row8, new Insets(0, 0, 0, 0));
+        VBox.setMargin(row9, new Insets(-26, -26, -26, -26));
+
+
         pane.setAlignment(Pos.CENTER);
-        pane.setStyle("-fx-background-color: #ffffff; -fx-padding: 20;");
-        Scene scene = new Scene(pane);
+        pane.setStyle("-fx-background-color: #ffffff; -fx-padding: 100;");
+
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(pane);
+
+        // try to add ints
+        for (int i=0; i<5; i++) {
+            Label numbers = new Label();
+            numbers.setText("" + (i+1));
+            anchorPane.getChildren().add(numbers);
+            // AnchorPane.setLeftAnchor();
+        }
+
+
+
+        Scene scene = new Scene(anchorPane);
+        // Scene numScene = new Scene(numbers);
+
+
+        // stage.setScene(numScene);
         stage.setScene(scene);
+
         stage.show();
     }
 
-    private static Pane createRow(String... texts) {
+    private static Pane createRow(int n) {
         HBox pane = new HBox();
         pane.setAlignment(Pos.CENTER);
-        Stream var10000 = Arrays.stream(texts).map(HexagonGrid::createStar);
-        ObservableList var10001 = pane.getChildren();
-        Objects.requireNonNull(var10001);
-        var10000.forEach(var10001::add);
+
+        for (int i = 0; i < n; i++) {
+            pane.getChildren().add(createStar());
+        }
+
         return pane;
     }
 
-    private static Pane createStar(String text) {
-        int halfEdge = 25;
-        Polygon star = new Polygon(new double[]{0.0, (double)halfEdge, 1.73 * (double)halfEdge, 0.0, 3.46 * (double)halfEdge, (double)halfEdge, 3.46 * (double)halfEdge, (double)(3 * halfEdge), 1.73 * (double)halfEdge, (double)(4 * halfEdge), 0.0, (double)(3 * halfEdge), 0.0, (double)halfEdge});
+    private static Pane createStar() {
+        int halfEdge = 22;
+        Polygon star = new Polygon(0, halfEdge, 1.73*halfEdge, 0,
+                3.46*halfEdge, halfEdge, 3.46*halfEdge, 3*halfEdge,
+                1.73*halfEdge, 4*halfEdge, 0, 3*halfEdge,
+                0, halfEdge
+        );
+
         star.setFill(Color.TRANSPARENT);
-        star.setStrokeWidth(2.0);
+        star.setStrokeWidth(2);
         star.setStroke(Color.BLACK);
+
+        // Removes the small gap between rows
         star.setScaleX(1.04);
         star.setScaleY(1.0);
-        Label label = new Label(text);
-        label.setFont(Font.font("Arial", FontWeight.BOLD, 16.0));
-        label.setTextFill(Color.BLACK);
+
         StackPane pane = new StackPane();
-        pane.getChildren().addAll(new Node[]{star, label});
+        pane.getChildren().addAll(star);
+
         return pane;
     }
 
