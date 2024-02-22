@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa5bd383-235d-4823-be62-b689d40ca250" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../javaFX_0216/src/main/java/com/example/javafx_0216/HexagonsByCor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javaFX_0216/src/main/java/com/example/javafx_0216/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javaFX_0216/src/main/java/com/example/javafx_0216/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javaFX_0216/src/main/java/com/example/javafx_0216/HexagonGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javaFX_0216/src/main/java/com/example/javafx_0216/HexagonGrid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javaFX_0216/src/main/resources/com/example/javafx_0216/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../javaFX_0216/src/main/resources/com/example/javafx_0216/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +56,7 @@
       <workItem from="1707992976639" duration="1166000" />
       <workItem from="1708009277716" duration="6690000" />
       <workItem from="1708073369589" duration="1527000" />
-      <workItem from="1708509655507" duration="2087000" />
+      <workItem from="1708509655507" duration="2137000" />
     </task>
     <servers />
   </component>
