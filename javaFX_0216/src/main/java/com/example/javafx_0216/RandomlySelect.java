@@ -2,6 +2,10 @@ package com.example.javafx_0216;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @param <E>
+ */
 public class RandomlySelect<E> {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -22,6 +26,14 @@ public class RandomlySelect<E> {
 
 
     }
+
+    /**
+     * Randomly select some elements from an array list and return it as
+     * @param list select elements from this list
+     * @param size number of elements use want ot select
+     * @return a list of randomly select elements
+     * @param <E> generic type
+     */
     public static<E> ArrayList<E> randomlySelect(ArrayList<E> list, int size) {
         // validation check
         if (list.size() < size) throw new IllegalArgumentException("Out of range.");

@@ -9,9 +9,9 @@ import static com.example.javafx_0216.RandomlySelect.randomlySelect;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RandomlySelectTest {
+    ArrayList<Integer> list = new ArrayList<>();
     @BeforeEach
     public void init() {
-        ArrayList<Integer> list = new ArrayList<>();
         // add
         list.add(24);
         list.add(636);
@@ -27,8 +27,8 @@ class RandomlySelectTest {
     @Test
     void testOutOfRange() {
         try {
-            ArrayList<Integer> random = randomlySelect(list, 5);
-        }catch (IllegalArgumentException) {
+            ArrayList<Integer> random = randomlySelect(list, 100);
+        }catch (IllegalArgumentException ex) {
 
         }
 
