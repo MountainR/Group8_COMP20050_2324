@@ -47,9 +47,11 @@ public class RandomlySelect<E> {
             // we need to expand it and give a type casting
             int index = (int) (Math.random() * list.size());
 
-            // TODO 3 ----------- Check if the index is duplicating, if not, add it to the list -----------
+            // TODO 3 ----------- Check if the index is repeated, if not, add it to the list -----------
             while (indexList.contains(index)) {
                 index = (int) (Math.random() * list.size());
+                // If array is [1, 1, 1], it would be infinite. How to solve it?
+
             }
 //            System.out.print(index + " ");
 

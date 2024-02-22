@@ -24,6 +24,9 @@ class RandomlySelectTest {
         list.add(9);
     }
 
+    /**
+     * Test if the number of element we want is greater than the length of array
+     */
     @Test
     void testOutOfRange() {
         try {
@@ -31,6 +34,17 @@ class RandomlySelectTest {
         }catch (IllegalArgumentException ex) {
 
         }
+    }
+    /**
+     * Test whether the elements we select is repeated
+     */
+    @Test
+    void testRepeated() {
+        ArrayList<Integer> repeatedList = new ArrayList<>();
+        repeatedList.add(1);
+        repeatedList.add(1);
+        repeatedList.add(1);
+        repeatedList.add(1);
 
     }
 }
