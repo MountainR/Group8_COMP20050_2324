@@ -41,9 +41,8 @@ public class HelloApplication extends Application {
         Pane atoms = new Pane();
         // ------- central coordinates------
         double[][] centralCor = {
-                {10, 478},
-                {10, 10},
-                {10, 118},
+                {350, 20},
+
 
         };
 

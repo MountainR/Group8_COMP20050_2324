@@ -187,11 +187,11 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="26.0" VBox.vgrow="NEVER">
                <children>
-                  <Circle fill="#ffa5d5" radius="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" HBox.hgrow="NEVER" />
-                  <Circle fill="#ffa5d5" layoutX="385.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" HBox.hgrow="NEVER" />
-                  <Circle fill="#ffa5d5" layoutX="414.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" HBox.hgrow="NEVER" />
-                  <Circle fill="#ffa5d5" layoutX="443.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" HBox.hgrow="NEVER" />
-                  <Circle fill="#ffa5d5" layoutX="472.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" visible="false" HBox.hgrow="NEVER" />
+                  <Circle disable="true" fill="#ffa5d5" layoutX="385.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" HBox.hgrow="NEVER" />
+                  <Circle fill="#ffa5d5" layoutX="414.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" HBox.hgrow="NEVER" />
+                  <Circle fill="#ffa5d5" layoutX="443.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" HBox.hgrow="NEVER" />
+                  <Circle fill="#ffa5d5" layoutX="472.0" layoutY="60.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" HBox.hgrow="NEVER" />
+                  <Circle fill="#ffa5d5" layoutX="337.0" layoutY="35.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
