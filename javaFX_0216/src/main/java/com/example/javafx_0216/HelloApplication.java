@@ -25,8 +25,8 @@ public class HelloApplication extends Application {
 //        double [61][2] coordinates =
 
 
-        Pane circles = addCirclePane();
-        rootPane.getChildren().addAll(fxml, circles);
+//        Pane circles = addCirclePane();
+        rootPane.getChildren().addAll(fxml);
 
         Scene scene = new Scene(rootPane, 800, 800);
 

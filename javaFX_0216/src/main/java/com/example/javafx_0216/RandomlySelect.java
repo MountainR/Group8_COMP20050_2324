@@ -34,7 +34,7 @@ public class RandomlySelect<E> {
      * @return a list of randomly select elements
      * @param <E> generic type
      */
-    public static<E> ArrayList<E> randomlySelect(ArrayList<E> list, int size) {
+    public static<E> ArrayList<Integer> randomlySelect(ArrayList<E> list, int size) {
         // validation check
         if (list.size() < size) throw new IllegalArgumentException("Out of range.");
         // TODO 1 ----------- Make an empty array list for elements and an empty array list for index -----------
@@ -58,13 +58,13 @@ public class RandomlySelect<E> {
             indexList.add(index);
         }
 
-        // TODO 4 ------------ get the item by index --------------
-        for (Integer i : indexList) {
-            E newItem = list.get(i);
-            // TODO 5 ------------ get items to array list --------------
-            randomElements.add(newItem);
-        }
+//        // TODO 4 ------------ get the item by index --------------
+//        for (Integer i : indexList) {
+//            E newItem = list.get(i);
+//            // TODO 5 ------------ get items to array list --------------
+//            randomElements.add(newItem);
+//        }
     // TODO 6 ------------ return the array list --------------
-        return randomElements;
+        return indexList;
     }
 }
