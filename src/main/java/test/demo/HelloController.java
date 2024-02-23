@@ -26,11 +26,13 @@ public class HelloController {
 
     private ArrayList<Circle> atoms;
 
-    private ArrayList<Circle> selectedAtoms;
+    private ArrayList<Circle> selectedAtoms = new ArrayList<>();
+    private ArrayList<Circle> selectedCircles = new ArrayList<>();
 
-    public HelloController() {
-
-    }
+    @FXML
+    private VBox circleContainer;
+    @FXML
+    private ArrayList<Circle> circles;
 
     /**
      * Displays the atoms that have been randomly selected
@@ -39,6 +41,7 @@ public class HelloController {
     public void displayAtoms() throws IOException {
         for (int i = 0; i < selectedAtoms.size(); i++) {
             selectedAtoms.get(i).setVisible(true); //set all atoms in arraylist to be visible
+            selectedCircles.get(i).setVisible(true);
         }
     }
 
@@ -47,8 +50,13 @@ public class HelloController {
      */
     @FXML
     public void initialize() {
+        ArrayList<Integer> indexes = new ArrayList<>();
         generateAtoms();
-        selectedAtoms = RandomlySelect.randomlySelect(atoms, 5);
+        indexes = RandomlySelect.randomlySelect(atoms, 5);
+        for (int i = 0; i < indexes.size(); i++) {
+            selectedAtoms.add(atoms.get(indexes.get(i)));
+            selectedCircles.add(circles.get(indexes.get(i)));
+        }
     }
 
     /**
@@ -80,6 +88,41 @@ public class HelloController {
             if (i < 4) n++; //number of atoms increases by 1 if the row is before the middle row
             else n--; //number of atoms decreases by 1 if the row is after the middle row
         }
+
+        circleOfInfluenceDisplay();
+    }
+
+    @FXML
+    public void circleOfInfluenceDisplay() {
+        circles = new ArrayList<Circle>();
+        int n = 5;
+
+
+        for (int i = 0; i < 9; i++) {
+            HBox row = new HBox();
+            row.setAlignment(Pos.TOP_CENTER);
+            row.prefHeight(100);
+            row.prefWidth(200);
+            row.setSpacing(-75);
+            VBox.setMargin(row, new Insets(-43, 0, -43, 0));
+
+            for (int j = 0; j < n; j++) {
+                Circle circle = new Circle();
+                circle.setFill(Color.TRANSPARENT);
+                circle.getStrokeWidth();
+                circle.getStrokeDashArray().addAll(5d, 5d);
+                circle.setStroke(Color.WHITE);
+                circle.setRadius(75);
+                circle.setVisible(false);
+                circles.add(circle);
+                row.getChildren().add(circle);
+            }
+
+            circleContainer.getChildren().add(row);
+            if (i < 4) n++;
+            else n--;
+        }
+
     }
 
 }
