@@ -26,7 +26,7 @@ public class HelloController {
 
     private ArrayList<Circle> atoms;
 
-    private ArrayList<Circle> selectedAtoms;
+    private ArrayList<Circle> selectedAtoms = new ArrayList<>();
 
     public HelloController() {
 
