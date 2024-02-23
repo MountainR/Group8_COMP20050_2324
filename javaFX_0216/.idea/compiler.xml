@@ -6,10 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="javaFX_0216" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="javaFX_0216" target="20" />
-    </bytecodeTargetLevel>
   </component>
 </project>

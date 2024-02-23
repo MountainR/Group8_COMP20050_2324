@@ -1,14 +1,13 @@
 package com.example.javafx_0216;    // package name
 
-import javafx.application.Application;  // the main class for JavaFX applications
-import javafx.fxml.FXMLLoader;          //  loading FXML files
-import javafx.scene.Scene;              //  for all content in a scene graph
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.stage.Stage;              // the top-level container for a JavaFX application
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
