@@ -10,12 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a94c028-2d39-4b74-8a2e-2aed2500b3b6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx_0216/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/javaFX_0216_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/javaFX_0216_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/javaFX_0216_jar/javaFX_0216.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/javaFX_0216_jar/javaFX_0216.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx_0216/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx_0216/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/javafx_0216/RandomlySelectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/javafx_0216/RandomlySelectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -61,10 +63,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.kotlinCompiler",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -90,6 +92,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.javafx_0216.HelloApplication" />
+      <module name="javaFX_0216" />
+      <option name="VM_PARAMETERS" value="--module-path /path/to/javafx-sdk-11.0.1/lib --add-modules=javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RandomlySelectTest.testOutOfRange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="javaFX_0216" />
       <extension name="coverage">
@@ -108,12 +118,13 @@
     </configuration>
     <configuration name="jar1" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/javaFX_0216_jar/javaFX_0216.jar" />
-      <option name="VM_PARAMETERS" value="--module-path /path/to/JavaFX/lib --add-modules=javafx.controls" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$/../javafx-sdk-20.0.2b&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.fxml" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/java/com/example/javafx_0216" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.test" />
       <item itemvalue="Application.RandomlySelect" />
       <item itemvalue="JAR Application.jar1" />
       <item itemvalue="JUnit.RandomlySelectTest.testOutOfRange" />
@@ -137,7 +148,8 @@
       <workItem from="1708423581765" duration="2164000" />
       <workItem from="1708509352805" duration="3977000" />
       <workItem from="1708607266851" duration="13733000" />
-      <workItem from="1708693108978" duration="1442000" />
+      <workItem from="1708693108978" duration="3650000" />
+      <workItem from="1708711046413" duration="1305000" />
     </task>
     <servers />
   </component>
