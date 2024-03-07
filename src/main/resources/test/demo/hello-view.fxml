@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<StackPane style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.demo.HelloController">
+<StackPane style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.demo.HelloController">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="750.0" style="-fx-background-color: Black;">
          <children>
@@ -188,29 +188,34 @@
             <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
          </padding>
       </VBox>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="750.0">
+      <VBox fx:id="circleContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="620.0" prefWidth="750.0">
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Pane fx:id="labelContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="750.0">
          <children>
-            <Label layoutX="193.0" layoutY="1.0" text="1" textFill="WHITE">
+            <Label fx:id="label1" layoutX="193.0" layoutY="1.0" text="1" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="170.0" layoutY="43.0" text="2" textFill="WHITE">
+            <Label fx:id="label2" layoutX="170.0" layoutY="43.0" text="2" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="144.0" layoutY="71.0" text="3" textFill="WHITE">
+            <Label fx:id="label3" layoutX="144.0" layoutY="71.0" text="3" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="130.0" layoutY="106.0" text="4" textFill="WHITE">
+            <Label fx:id="label4" layoutX="130.0" layoutY="106.0" text="4" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="105.0" layoutY="138.0" text="5" textFill="WHITE">
+            <Label fx:id="label5" layoutX="105.0" layoutY="138.0" text="5" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -460,7 +465,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="25.0" layoutY="21.0" mnemonicParsing="false" onAction="#displayAtoms" text="Start Game" />
+            <Button fx:id="startButton" layoutX="25.0" layoutY="21.0" mnemonicParsing="false" onAction="#displayAtoms" text="Display Atoms" />
+            <Button fx:id="rayButton" layoutX="25.0" layoutY="50.0" mnemonicParsing="false" onAction="#sendRay" text="Send Ray" />
          </children>
       </Pane>
    </children>
