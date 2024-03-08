@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -26,7 +27,7 @@ public class HelloController {
     @FXML
     private Button startButton;
 
-    @FXML private Button rayButton;
+    @FXML private TextField rayField;
 
     @FXML
     private VBox atomContainer;
@@ -66,13 +67,20 @@ public class HelloController {
         storeCoordinates();
     }
 
+    /**
+     * Calculates the ray path
+     * @param startLabel the label at which the ray enters
+     * @return returns the label at which the ray exits
+     */
     @FXML
     public LabelMap calcRay(int startLabel) {
-        LabelMap in = new LabelMap(startLabel);
-        SixtyDegreeTest mover = new SixtyDegreeTest();
+        LabelMap in = new LabelMap(startLabel); //ray entering the board
+        SixtyDegreeTest mover = new SixtyDegreeTest(); //calculates the ray path
         ArrayList<SixtyDegreeTest.HexagonCoor> atoms = new ArrayList<>();
+        //gets the coordinates of the start of the ray from the index of the start hexagon
         SixtyDegreeTest.HexagonCoor startCoor = mover.getCoorList().get(in.getIndex());
 
+        //the indexes arrayList is the index of each atom that is on the board
         for (Integer index : indexes) {
             atoms.add(mover.getCoorList().get(index)); //add atoms by index
         }
@@ -80,10 +88,18 @@ public class HelloController {
         return mover.moveRay(startCoor, atoms, in.getDirection());
     }
 
+    /**
+     * displays the ray path on the UI
+     */
     public void sendRay() {
-        int in = 8;
+        int in = Integer.parseInt(rayField.getText());
         LabelMap out = calcRay(in);
-        setMarker(in, out.getLabelNum());
+        if (out == null) {
+            setMarker(in, in);
+            Label hit = checkLabel(in - 1);
+            hit.setText("H");
+        }
+        else {setMarker(in, out.getLabelNum());}
     }
 
     @FXML

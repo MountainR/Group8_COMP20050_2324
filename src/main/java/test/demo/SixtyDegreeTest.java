@@ -225,6 +225,16 @@ public class SixtyDegreeTest {
                 p2Index = returnIndex(start.getX() - 1, start.getY(), start.getZ() + 1);
                 p3Index = returnIndex(start.getX(), start.getY() + 1, start.getZ() - 1);
                 break;
+            case west:
+                p1Index = returnIndex(start.getX() - 1, start.getY() , start.getZ() + 1);
+                p2Index = returnIndex(start.getX(), start.getY() - 1, start.getZ() + 1);
+                p3Index = returnIndex(start.getX() - 1, start.getY() + 1, start.getZ());
+                break;
+            case northeast:
+                p1Index = returnIndex(start.getX(), start.getY() + 1, start.getZ() - 1);
+                p2Index = returnIndex(start.getX() - 1, start.getY() + 1, start.getZ());
+                p3Index = returnIndex(start.getX() + 1, start.getY() , start.getZ() - 1);
+                break;
         }
 
 
@@ -249,42 +259,124 @@ public class SixtyDegreeTest {
             switch (direction) {
                 case southeast:
                     nextIndex = returnIndex(start.getX() - 1, start.getY(), start.getZ() + 1);
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.west;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
                     break;
                 case southwest:
                     nextIndex = returnIndex(start.getX()-1, start.getY()+1, start.getZ());
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.northwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
                     break;
                 case east:
                     nextIndex = returnIndex(start.getX(), start.getY() - 1, start.getZ() + 1);
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.southwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
                 case northwest:
                     nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ() - 1);
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.east;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX(), start.getY() + 1, start.getZ() - 1);
+                    direction = directions.northeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.getZ());
+                    direction = directions.southeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
             }
 
         }
 
-        if (position1 != null && position3 != null && containsCoor(position1, atoms) && containsCoor(position3, atoms))
+        else if (position1 != null && position3 != null && containsCoor(position1, atoms) && containsCoor(position3, atoms))
         {
             System.out.println("Meet atoms at P1 and P3, turn 60 degrees.");
             switch (direction)
             {
+                case southeast:
+                    nextIndex = returnIndex(start.getX(), start.getY()+1, start.getZ()-1);
+                    direction = directions.northeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case southwest:
+                    nextIndex = returnIndex(start.getX()+1, start.getY(), start.getZ()-1);
+                    direction = directions.east;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
                 case east:
                     nextIndex = returnIndex(start.getX() - 1, start.getY() + 1, start.getZ());
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.northwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
                     break;
                 case northwest:
                     nextIndex = returnIndex(start.getX(), start.getY() - 1, start.getZ() + 1);
-                    nextCoor = coorList.get(nextIndex);
                     direction = directions.southwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.getZ());
+                    direction = directions.southeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY(), start.getZ() + 1);
+                    direction = directions.west;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
                     break;
             }
+        }
+
+        else if (position1 != null && containsCoor(position1, atoms)){
+            switch (direction) {
+                case southeast:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.z);
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case southwest:
+                    nextIndex = returnIndex(start.getX(), start.getY() - 1, start.z+1);
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case east:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ() - 1);
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northwest:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY() + 1, start.getZ());
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY() , start.getZ() + 1);
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX(), start.getY() + 1, start.getZ() - 1);
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+            }
+            System.out.println("Meet at P1 and hit");
+            System.out.println("Next coordinate: " + nextCoor.toString());
+            return null;
         }
 
 
@@ -305,6 +397,12 @@ public class SixtyDegreeTest {
         }
     }
 
+    public boolean onEdge(int currIndex) {
+        List<Integer> edgeNums = Arrays.asList(0, 1, 2, 3, 4, 5, 11, 18, 26, 35, 43, 50, 56, 57, 58, 59, 60, 55, 49, 42, 34, 25,
+                17, 10, 4);
+        return edgeNums.contains(currIndex);
+    }
+
     public boolean containsCoor(HexagonCoor coor, ArrayList<HexagonCoor> list) {
         for (HexagonCoor item : list) {
             if (coor.compareTo(item) == 0) return true;
@@ -314,8 +412,8 @@ public class SixtyDegreeTest {
 
     public static void main(String[] args) {
         SixtyDegreeTest test = new SixtyDegreeTest();
-        int atom1 = 29;
-        int atom2 = 37;
+        int atom1 = 10;
+        int atom2 = 24;
 
         // generate atom array
         ArrayList<HexagonCoor> atoms = new ArrayList<>();
@@ -325,8 +423,8 @@ public class SixtyDegreeTest {
         System.out.println("Atoms: " + atoms);
 
         // get a label
-        int startHexagon = 26;
-        directions direction = directions.east;
+        int startHexagon = 34;
+        directions direction = directions.northwest;
 
 
         // System.out.println(test.coorList.toString());

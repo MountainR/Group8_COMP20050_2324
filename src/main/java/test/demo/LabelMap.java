@@ -33,6 +33,8 @@ public class LabelMap {
                 case 49 -> labelNum = 32;
                 case 42 -> labelNum = 34;
                 case 34 -> labelNum = 36;
+
+                default -> throw new IllegalArgumentException("Hexagon is not on edge");
             }
         }
         else if (direction == SixtyDegreeTest.directions.northeast || direction == SixtyDegreeTest.directions.southwest)
@@ -58,6 +60,7 @@ public class LabelMap {
                 case 58 -> labelNum = 23;
                 case 59 -> labelNum = 25;
                 case 60 -> labelNum = 27;
+                default -> throw new IllegalArgumentException("Hexagon is not on edge");
             }
         }
         else if (direction == SixtyDegreeTest.directions.east || direction == SixtyDegreeTest.directions.west)
@@ -83,6 +86,7 @@ public class LabelMap {
                 case 10 -> labelNum = 43;
                 case 17 -> labelNum = 41;
                 case 25 -> labelNum = 39;
+                default -> throw new IllegalArgumentException("Hexagon is not on edge");
             }
         }
 
