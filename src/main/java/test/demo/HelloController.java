@@ -24,6 +24,7 @@ import java.util.Scanner;
 
 
 public class HelloController {
+    @FXML ArrayList<Label> centerPoints;
     @FXML
     private Button startButton;
 
