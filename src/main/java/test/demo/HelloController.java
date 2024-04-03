@@ -1,5 +1,6 @@
 package test.demo;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,8 @@ import java.util.Scanner;
 
 
 public class HelloController {
-    @FXML ArrayList<Label> centerPoints;
+
+    public Double[][] realCoors = new Double[61][2];
     @FXML
     private Button startButton;
 
@@ -54,6 +56,21 @@ public class HelloController {
     public enum directions {southeast, southwest, west, northwest, northeast, east}
     ArrayList<Integer> indexes;
 
+    @FXML Pane invisibleDots;
+    /**
+     * get all real coordinates of hexagons by invisible dots
+     */
+    @FXML
+    public void getRealCoor() {
+        ObservableList <Node> dots = invisibleDots.getChildren();
+        // get all coordinate
+        for(int i=0; i<61; ++i) {
+            realCoors[i][0] = dots.get(i).getLayoutX();
+            realCoors[i][1] = dots.get(i).getLayoutY();
+            System.out.println("x: "+realCoors[i][0]+" y: "+realCoors[i][1]);
+        }
+
+    }
 
     /**
      * initializes grid with hidden atoms for every hexagon in the grid
@@ -66,6 +83,8 @@ public class HelloController {
             selectedCirclesOfInfluence.add(circlesOfInfluence.get(index)); // the circles of influence are added to an arraylist
         }
         storeCoordinates();
+        getRealCoor();
+
     }
 
     /**
