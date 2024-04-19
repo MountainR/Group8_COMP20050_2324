@@ -1,8 +1,12 @@
 package test.demo;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Math.abs;
 
@@ -10,12 +14,15 @@ public class SixtyDegreeTest {
     // direction
     public enum directions {southeast, southwest, west, northwest, northeast, east}
 
+    ArrayList<Line> lines = new ArrayList<>();
 
     public SixtyDegreeTest() {
         addCors();
     }
 
-
+    public ArrayList<Line> getLine() {
+        return lines;
+    }
     public static class HexagonCoor {
         private final int x, y, z, index;
         private final List<directions> exit;
@@ -168,42 +175,120 @@ public class SixtyDegreeTest {
 
 
     }
+
+    public boolean checkLabelPlusOne(LabelMap startLabel, ArrayList<HexagonCoor> atoms)
+    {
+        LabelMap checkLabel = new LabelMap(startLabel.getLabelNum() + 1);
+        HexagonCoor checkHexagon = getCoorList().get(checkLabel.getIndex());
+
+        if (containsCoor(checkHexagon, atoms))
+        {
+            //System.out.println("Ray was reflected");
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean checkLabelMinusOne(LabelMap startLabel, ArrayList<HexagonCoor> atoms)
+    {
+        LabelMap checkLabel = new LabelMap(startLabel.getLabelNum() - 1);
+        HexagonCoor checkHexagon = getCoorList().get(checkLabel.getIndex());
+
+        if (containsCoor(checkHexagon, atoms))
+        {
+            //System.out.println("Ray was reflected");
+            return true;
+        }
+        else return false;
+    }
+
+    int rayDepth = 0;
     public LabelMap moveRay(HexagonCoor start, ArrayList<HexagonCoor> atoms, directions direction) {
         HexagonCoor nextCoor = start;
         int nextIndex;
-        // get nextCoor by its direction. Miss case
-        switch (direction) {
-            case southeast:
-                nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.getZ());
-                nextCoor = coorList.get(nextIndex);
-                break;
-            case southwest:
-                nextIndex = returnIndex(start.getX(), start.getY() - 1, start.getZ()+1);
-                nextCoor = coorList.get(nextIndex);
-                break;
-            case west:
-                nextIndex = returnIndex(start.getX() - 1, start.getY(), start.getZ()+1);
-                nextCoor = coorList.get(nextIndex);
-                break;
-            case northwest:
-                nextIndex = returnIndex(start.getX() - 1, start.getY()+1, start.getZ());
-                nextCoor = coorList.get(nextIndex);
-                break;
-            case northeast:
-                nextIndex = returnIndex(start.getX(), start.getY()+1, start.getZ()-1);
-                nextCoor = coorList.get(nextIndex);
-                break;
-            case east:
-                nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ() - 1);
-                nextCoor = coorList.get(nextIndex);
-                break;
+        HexagonCoor position1=null, position2=null, position3=null;
+        int p1Index=-1, p2Index=-1, p3Index=-1;
+
+        if (rayDepth == 0) {
+            LabelMap startLabel = new LabelMap(nextCoor.index, direction.ordinal());
+            //check if hexagon at start label contains an atom
+            if (containsCoor(start, atoms)) {
+                //System.out.println("Meet at P1 and hit");
+                return null;
+            } else
+            {
+                if (startLabel.getLabelNum() > 1 && startLabel.getLabelNum() < 10) //if ray is entering labels 1-10
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+
+                }
+                else if (startLabel.getLabelNum() > 10 && startLabel.getLabelNum() < 19)
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+                }
+                else if (startLabel.getLabelNum() > 19 && startLabel.getLabelNum() < 28)
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+                }
+                else if (startLabel.getLabelNum() > 28 && startLabel.getLabelNum() < 37)
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+                }
+                else if (startLabel.getLabelNum() > 37 && startLabel.getLabelNum() < 46)
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+                }
+                else if (startLabel.getLabelNum() > 46 && startLabel.getLabelNum() <= 54)
+                {
+                    if (startLabel.getLabelNum() % 2 == 0) //if even
+                    {
+                        if (checkLabelMinusOne(startLabel, atoms)) { return startLabel; } //check label number + 1 for atom
+                    }
+                    else if (startLabel.getLabelNum() % 2 == 1) //if odd
+                    {
+                        if (checkLabelPlusOne(startLabel, atoms)) { return startLabel; } //check label number - 1 for atom
+                    }
+                }
+            }
+
 
         }
 
-        // 60 degree check in direction southeast
-
-        HexagonCoor position1=null, position2=null, position3=null;
-        int p1Index=-1, p2Index=-1, p3Index=-1;
         switch(direction) {
             case southeast:
                 p1Index = returnIndex(start.getX() + 1, start.getY() - 1, start.z);
@@ -247,15 +332,89 @@ public class SixtyDegreeTest {
         if (p3Index != -1) {
             position3 = coorList.get(p3Index);
         }
+
+        // get nextCoor by its direction. Miss case
+        switch (direction) {
+            case southeast:
+                nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.getZ());
+                nextCoor = coorList.get(nextIndex);
+                break;
+            case southwest:
+                nextIndex = returnIndex(start.getX(), start.getY() - 1, start.getZ()+1);
+                nextCoor = coorList.get(nextIndex);
+                break;
+            case west:
+                nextIndex = returnIndex(start.getX() - 1, start.getY(), start.getZ()+1);
+                nextCoor = coorList.get(nextIndex);
+                break;
+            case northwest:
+                nextIndex = returnIndex(start.getX() - 1, start.getY()+1, start.getZ());
+                nextCoor = coorList.get(nextIndex);
+                break;
+            case northeast:
+                nextIndex = returnIndex(start.getX(), start.getY()+1, start.getZ()-1);
+                nextCoor = coorList.get(nextIndex);
+                break;
+            case east:
+                nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ() - 1);
+                nextCoor = coorList.get(nextIndex);
+                break;
+
+        }
+
         // System.out.println("P1: " + position1.toString() + " P2: " + position2.toString());
 
         // --------------------- if position1 had atom and position 2 has atom ----------------
         // System.out.println(containsCoor(position1, atoms));
         // System.out.println(containsCoor(position2, atoms));
-
-        if (position1 != null && position2 != null && containsCoor(position1, atoms) && containsCoor(position2, atoms)) {
+        //reflect
+        if (position2 != null && position3 != null && containsCoor(position2,atoms) && containsCoor(position3,atoms) ||
+                position1 != null && position2 != null && position3 != null && containsCoor(position1, atoms) && containsCoor(position2,atoms) && containsCoor(position3,atoms))
+        {
+            switch (direction)
+            {
+                case southeast:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY() + 1, start.z);
+                    direction = directions.northwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case southwest:
+                    nextIndex = returnIndex(start.getX(), start.getY() + 1, start.z - 1);
+                    direction = directions.northeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY(), start.z - 1);
+                    direction = directions.east;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northwest:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.z);
+                    direction = directions.southeast;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX(), start.getY() - 1, start.z + 1);
+                    direction = directions.southwest;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+                case east:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY(), start.z + 1);
+                    direction = directions.west;
+                    if (onEdge(start.getIndex()) && start.getExit().contains(direction)) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    break;
+            }
+            //System.out.println("Ray was reflected");
+        }
+        else if (position1 != null && position2 != null && containsCoor(position1, atoms) && containsCoor(position2, atoms)) {
             // next position change to (x-1, y, z+1)
-            System.out.println("Meet atoms at P1 and P2, turn 60 degrees.");
+            //System.out.println("Meet atoms at P1 and P2, turn 60 degrees.");
             switch (direction) {
                 case southeast:
                     nextIndex = returnIndex(start.getX() - 1, start.getY(), start.getZ() + 1);
@@ -299,7 +458,7 @@ public class SixtyDegreeTest {
 
         else if (position1 != null && position3 != null && containsCoor(position1, atoms) && containsCoor(position3, atoms))
         {
-            System.out.println("Meet atoms at P1 and P3, turn 60 degrees.");
+            //System.out.println("Meet atoms at P1 and P3, turn 60 degrees.");
             switch (direction)
             {
                 case southeast:
@@ -374,25 +533,134 @@ public class SixtyDegreeTest {
                     else {nextCoor = coorList.get(nextIndex);}
                     break;
             }
-            System.out.println("Meet at P1 and hit");
-            System.out.println("Next coordinate: " + nextCoor.toString());
+
+            //System.out.println("Meet at P1 and hit");
+            //System.out.println("Next coordinate: " + nextCoor.toString());
             return null;
         }
 
+        else if (position2 != null && containsCoor(position2, atoms))
+        {
+            switch (direction)
+            {
+                case southeast:
+                    nextIndex = returnIndex(start.getX(), start.getY()-1, start.getZ()+1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.southwest;
+                    break;
+                case southwest:
+                    nextIndex = returnIndex(start.getX()-1, start.getY(), start.getZ()+1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.west;
+                    break;
+                case east:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY() - 1, start.getZ());
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.southeast;
+                    break;
+                case northwest:
+                    nextIndex = returnIndex(start.getX(), start.getY() + 1, start.getZ() - 1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.northeast;
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY() + 1, start.getZ());
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.northwest;
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ() - 1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.east;
+                    break;
+            }
+            //System.out.println("120 degree deflection due to P2");
+            //System.out.println("Next coordinate: " + nextCoor.toString());
+        }
+
+        //120 degree for P3
+        else if (position3 != null && containsCoor(position3, atoms))
+        {
+            switch (direction)
+            {
+                case southeast:
+                    nextIndex = returnIndex(start.getX() + 1, start.getY(), start.getZ()-1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.east;
+                    break;
+                case southwest:
+                    nextIndex = returnIndex(start.getX()+1, start.getY()-1, start.getZ());
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.southeast;
+                    break;
+                case east:
+                    nextIndex = returnIndex(start.getX() , start.getY() + 1, start.getZ()-1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.northeast;
+                    break;
+                case northwest:
+                    nextIndex = returnIndex(start.getX()-1, start.getY(), start.getZ() + 1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.west;
+                    break;
+                case west:
+                    nextIndex = returnIndex(start.getX() , start.getY() - 1, start.getZ()+1);
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.southwest;
+                    break;
+                case northeast:
+                    nextIndex = returnIndex(start.getX() - 1, start.getY()+1, start.getZ());
+                    if (onEdge(start.getIndex())) {nextCoor = start;}
+                    else {nextCoor = coorList.get(nextIndex);}
+                    direction = directions.northwest;
+                    break;
+            }
+            //System.out.println("120 degree deflection due to P3");
+            //System.out.println("Next coordinate: " + nextCoor.toString());
+        }
+
+        // Now we get start index and next index, let's draw lines!
+        // first let's get the coor
+        double startX = HelloController.realCoors[start.index][0];
+        double startY = HelloController.realCoors[start.index][1];
+        double endX = HelloController.realCoors[nextCoor.index][0];
+        double endY = HelloController.realCoors[nextCoor.index][1];
+
+        Line line = new Line(startX, startY, endX, endY);
+        line.setStroke(Color.CYAN);// change color of width
+        line.setStrokeWidth(3); // make ray path thicker
+        line.setVisible(false);
+        lines.add(line);
+
+        // add the line to the pane
+//        HelloController.addLine(line);
 
 
         // not at edge
         // System.out.println("abs(nextCoor.getX()): "+abs(nextCoor.getX()));
         if (abs(nextCoor.getX()) + abs(nextCoor.getY()) + abs(nextCoor.getZ()) != 8
                 || !nextCoor.getExit().contains(direction)) {
-            System.out.println("Next coordinate: " + nextCoor.toString());
+            //System.out.println("Next coordinate: " + nextCoor.toString());
+            rayDepth++;
             return moveRay(nextCoor, atoms, direction);
         }
         else {
-            System.out.println("Reach an edge: " + nextCoor.toString());
-            System.out.println("Direction: " + direction.ordinal());
+            //System.out.println("Reach an edge: " + nextCoor.toString());
+            //System.out.println("Direction: " + direction.ordinal());
             LabelMap label = new LabelMap(nextCoor.index, direction.ordinal());
-            System.out.println("Label: " + label.getLabelNum() + "\nDirection: " + label.getDirection());
+            //System.out.println("Label: " + label.getLabelNum() + "\nDirection: " + label.getDirection());
+            rayDepth = 0;
             return label;
         }
     }
@@ -412,18 +680,20 @@ public class SixtyDegreeTest {
 
     public static void main(String[] args) {
         SixtyDegreeTest test = new SixtyDegreeTest();
-        int atom1 = 10;
-        int atom2 = 24;
+        int atom1 = 45;
+        int atom2 = 37;
+        int atom3 = 43;
 
         // generate atom array
         ArrayList<HexagonCoor> atoms = new ArrayList<>();
         // place 2 atoms at 13, 7
         atoms.add(test.coorList.get(atom1));
         atoms.add(test.coorList.get(atom2));
-        System.out.println("Atoms: " + atoms);
+        atoms.add(test.coorList.get(atom3));
+        //System.out.println("Atoms: " + atoms);
 
         // get a label
-        int startHexagon = 34;
+        int startHexagon = 57;
         directions direction = directions.northwest;
 
 
@@ -431,9 +701,9 @@ public class SixtyDegreeTest {
 
         // 2.Convert the label to a coordinate of hexagon (x, y, z), print it
         HexagonCoor startCoor = test.coorList.get(startHexagon);
-        System.out.println("Start: " + startCoor.getIndex());
-        System.out.println("Direction: " + direction);
-        System.out.println();
+        //System.out.println("Start: " + startCoor.getIndex());
+        //System.out.println("Direction: " + direction);
+        //System.out.println();
 
         // 3. Get the next hexagon coordinate, print it
         // since we move southwest, x+1, y-1, z

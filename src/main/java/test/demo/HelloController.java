@@ -1,5 +1,6 @@
 package test.demo;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +26,9 @@ import java.util.Scanner;
 
 
 public class HelloController {
+    ArrayList<ArrayList<Line>> lines = new ArrayList<>();
+    ArrayList<Line> gaps = new ArrayList<>();
+
     @FXML
     private Button startButton;
 
@@ -39,6 +44,7 @@ public class HelloController {
 
     private ArrayList<Circle> selectedAtoms = new ArrayList<>();
     private ArrayList<Circle> selectedCirclesOfInfluence = new ArrayList<>();
+    private ArrayList<Circle> userSelectedAtoms = new ArrayList<>();
 
     @FXML
     private VBox circleContainer;
@@ -48,11 +54,33 @@ public class HelloController {
     @FXML
     private Pane lineContainer;
 
+    @FXML
+    private TextField indexField;
+
+    private int rayCount = 0;
+
     private double[][] markersArr = new double[54][2];
 
     public enum directions {southeast, southwest, west, northwest, northeast, east}
     ArrayList<Integer> indexes;
+    ArrayList<Integer> userSelectedIndexes = new ArrayList<>();
 
+    @FXML Pane invisibleDots;
+    public static Double[][] realCoors = new Double[61][2];
+    /**
+     * get all real coordinates of hexagons by invisible dots
+     */
+    @FXML
+    public void getRealCoor() {
+        ObservableList<Node> dots = invisibleDots.getChildren();
+        // get all coordinate
+        for(int i=0; i<61; ++i) {
+            realCoors[i][0] = dots.get(i).getLayoutX();
+            realCoors[i][1] = dots.get(i).getLayoutY();
+            //System.out.println("x: "+realCoors[i][0]+" y: "+realCoors[i][1]);
+        }
+
+    }
 
     /**
      * initializes grid with hidden atoms for every hexagon in the grid
@@ -65,6 +93,7 @@ public class HelloController {
             selectedCirclesOfInfluence.add(circlesOfInfluence.get(index)); // the circles of influence are added to an arraylist
         }
         storeCoordinates();
+        getRealCoor();
     }
 
     /**
@@ -85,63 +114,47 @@ public class HelloController {
             atoms.add(mover.getCoorList().get(index)); //add atoms by index
         }
 
-        return mover.moveRay(startCoor, atoms, in.getDirection());
+        LabelMap endLabel = mover.moveRay(startCoor, atoms, in.getDirection());
+        lines.add(mover.getLine());
+        // add a line between label and startCoor
+        Line gap1 = getGap1(startCoor, in);
+        gaps.add(gap1);
+        if (endLabel != null) {
+            SixtyDegreeTest.HexagonCoor endCoor = mover.getCoorList().get(endLabel.getIndex());
+            Line gap2 = getGap1(endCoor, endLabel);
+            gaps.add(gap2);
+        }
+        return endLabel;
+    }
+
+    /**
+     * Add a line object to a pane
+     */
+    @FXML
+    public void addLine(ArrayList<Line> lines) {
+        for (Line line : lines) {
+            invisibleDots.getChildren().add(line);
+        }
     }
 
     /**
      * displays the ray path on the UI
      */
     public void sendRay() {
-        int in = Integer.parseInt(rayField.getText());
+        int in = Integer.parseInt(rayField.getText()); //takes input from text field
         LabelMap out = calcRay(in);
         if (out == null) {
             setMarker(in, in);
             Label hit = checkLabel(in - 1);
             hit.setText("H");
         }
+        else if (out.getLabelNum() == in) {
+            setMarker(in, in);
+            Label reflect = checkLabel(in - 1);
+            reflect.setText("R");
+        }
         else {setMarker(in, out.getLabelNum());}
-    }
-
-    @FXML
-    public int noHit(int start) {
-        int out;
-        if (start < 1)
-        {
-            throw new IllegalArgumentException("Input must be greater than 0");
-        }
-
-        if ((start <= 19 && start % 2 == 0) || (start >= 28 && start <= 46 && start % 2 == 1))
-        {
-            out = 47 - start;
-            setMarker(start, out);
-            return out;
-        }
-
-        else if (start <= 10 || start >= 19 && start <= 28 && start % 2 == 0)
-        {
-            out = 29 - start;
-            setMarker(start, out);
-            return out;
-        }
-
-        else if ((start <= 28  && start % 2 == 1)|| start >= 37 && start <= 54 && start % 2 == 0)
-        {
-            out = 65 - start;
-            setMarker(start, out);
-            return out;
-        }
-
-        else if ((start >= 27 && start <= 37 && start % 2 == 0) || (start >= 46 && start <= 54 && start % 2 == 1))
-        {
-            out = 83 - start;
-            setMarker(start, out);
-            return out;
-        }
-
-        else
-        {
-            throw new IllegalArgumentException("No valid output");
-        }
+        rayCount++;
     }
 
     @FXML
@@ -154,14 +167,75 @@ public class HelloController {
             markersArr[i][1] = label.getLayoutY();
         }
     }
+
+    public void userSelectAtoms()
+    {
+        try {
+            int in = Integer.parseInt(indexField.getText());
+
+            if (in < 0 || in > 60)
+                throw new IllegalArgumentException("Input must be an integer between 0 and 60.");
+
+            if (userSelectedIndexes.size() >= 5 && !userSelectedIndexes.contains(in))
+            {
+                System.out.println("You can have 5 atoms selected at a time. Please deselect an atom by re-entering its index before selecting another.");
+            }
+            else if (userSelectedIndexes.contains(in))
+            {
+                System.out.println("Index " + in + " was deselected");
+
+                //loop to find the index in the arraylist at which the atom to be deselected is placed
+                for (int i = 0; i < userSelectedIndexes.size(); i++)
+                {
+                    if (in == userSelectedIndexes.get(i)) {
+                        userSelectedAtoms.get(i).setVisible(false);
+                        userSelectedAtoms.remove(i);
+                        userSelectedIndexes.remove(i);
+                        break;
+                    }
+                }
+            }
+            else {
+                userSelectedAtoms.add(atoms.get(in));
+                userSelectedIndexes.add(in);
+                atoms.get(in).setVisible(true);
+                System.out.println("Current list of indexes: " + userSelectedIndexes);
+            }
+        } catch(Exception ex)
+        {
+            System.out.println("Please enter the hexagon index of ONE atom you would like to select as an integer.");
+            ex.printStackTrace();
+        }
+    }
     /**
      * Displays the atoms that have been randomly selected
      */
     @FXML
-    public void displayAtoms() {
-        for (int i = 0; i < selectedAtoms.size(); i++) {
-            selectedAtoms.get(i).setVisible(true); //set all atoms in arraylist to be visible
-            selectedCirclesOfInfluence.get(i).setVisible(true);
+    public void endRound() {
+        if (userSelectedAtoms.size() != 5)
+        {
+            System.out.println("Please select 5 atoms before ending the round");
+        }
+        else {
+            for (int i = 0; i < selectedAtoms.size(); i++) {
+                selectedAtoms.get(i).setVisible(true); //set all atoms in arraylist to be visible
+                selectedCirclesOfInfluence.get(i).setVisible(true);
+            }
+            for (ArrayList<Line> line : lines) {
+                addLine(line);
+            }
+            for (ArrayList<Line> line : lines) {
+                for (Line value : line) {
+                    value.setVisible(true);
+                }
+            }
+            addLine(gaps);
+            for (Line gap : gaps)
+            {
+                gap.setVisible(true);
+            }
+
+            System.out.println("Score is: " + calculateScore());
         }
     }
 
@@ -192,8 +266,7 @@ public class HelloController {
 
     int colourIndex = 0;
     @FXML
-    public void setMarker(int in, int out)
-    {
+    public void setMarker(int in, int out) {
         Label labelIn = checkLabel(in - 1);
         Label labelOut = checkLabel(out - 1);
 
@@ -204,10 +277,14 @@ public class HelloController {
                 Color.DARKVIOLET, Color.DARKSEAGREEN, Color.CORNFLOWERBLUE, Color.PEACHPUFF, Color.OLIVEDRAB,
                 Color.NAVY, Color.MAROON, Color.LEMONCHIFFON, Color.PINK));
 
-        Color backgroundColour = colours.get(colourIndex);
-        labelIn.setBackground(Background.fill(backgroundColour));
-        labelOut.setBackground(Background.fill(backgroundColour));
-        colourIndex++;
+        try {
+            Color backgroundColour = colours.get(colourIndex);
+            labelIn.setBackground(Background.fill(backgroundColour));
+            labelOut.setBackground(Background.fill(backgroundColour));
+            colourIndex++;
+        } catch (Exception ex) {
+            System.out.println("Ran out of marker colours to assign.");
+        }
 
     }
 
@@ -250,17 +327,6 @@ public class HelloController {
         return labelHexIndex[label];
     }
 
-
-    public static void userInput() {
-        Scanner scanner = new Scanner(System.in);
-        HelloController controller = new HelloController();
-        System.out.println("Enter the number of the edge from which you would like to send a ray (1-54).");
-
-        int input = scanner.nextInt();
-        int output = controller.noHit(input);
-        System.out.println("Ray entered at " + input);
-        System.out.println("Ray exited at " + output);
-    }
 
     /**
      * Generates hidden atoms in each hexagon and adds them to an arraylist
@@ -326,6 +392,49 @@ public class HelloController {
             else n--;
         }
 
+    }
+
+    /**
+     * Get the gap line between label and 1st hexagon
+     * @param startCoor
+     * @param in
+     * @return
+     */
+    private Line getGap1(SixtyDegreeTest.HexagonCoor startCoor, LabelMap in) {
+        int hexIndex = startCoor.getIndex();
+        int labelIndex = in.getLabelNum() - 1;
+        //System.out.println("hexIndex: " + hexIndex );
+        //System.out.println("labelIndex: " + labelIndex );
+
+        Node hexagon = invisibleDots.getChildren().get(hexIndex);
+        Node label = labelContainer.getChildren().get(labelIndex);
+
+        //System.out.println("Gap: " + hexagon.getLayoutX() + " " + hexagon.getLayoutY() + " " + label.getLayoutX() + " " + label.getLayoutY());
+
+        Line gap1 = new Line(hexagon.getLayoutX(), hexagon.getLayoutY(), label.getLayoutX(), label.getLayoutY());
+        gap1.setStroke(Color.CYAN);
+        gap1.setStrokeWidth(3); // make ray path thicker
+        gap1.setVisible(false);
+        return gap1;
+    }
+
+    public int calculateScore(){
+        int errorCount = 0;
+        int score = 0;
+        for(int i = 0; i < userSelectedIndexes.size(); i++){
+            if (!indexes.contains(userSelectedIndexes.get(i)))
+            {
+                errorCount++;
+                userSelectedAtoms.get(i).setFill(Color.RED);
+            }
+            else if (indexes.contains(userSelectedIndexes.get(i)))
+            {
+                userSelectedAtoms.get(i).setFill(Color.GREEN);
+            }
+        }
+
+        score = rayCount + (5 * errorCount);
+        return score;
     }
 
 }
