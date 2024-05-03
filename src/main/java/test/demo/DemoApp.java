@@ -1,3 +1,7 @@
+/**
+ * This class will calculate the ray path and return the result like hit, miss etc.
+ */
+
 package test.demo;
 
 import javafx.application.Application;

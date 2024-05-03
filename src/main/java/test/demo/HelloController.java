@@ -26,14 +26,9 @@ import java.util.Scanner;
 
 
 public class HelloController {
-<<<<<<< HEAD
     ArrayList<ArrayList<Line>> lines = new ArrayList<>();
     ArrayList<Line> gaps = new ArrayList<>();
 
-=======
-
-    public Double[][] realCoors = new Double[61][2];
->>>>>>> 5915fa2dfb307027f3a39b5a2905f6c109f6fea7
     @FXML
     private Button startButton;
 
@@ -71,29 +66,18 @@ public class HelloController {
     ArrayList<Integer> userSelectedIndexes = new ArrayList<>();
 
     @FXML Pane invisibleDots;
-<<<<<<< HEAD
     public static Double[][] realCoors = new Double[61][2];
-=======
->>>>>>> 5915fa2dfb307027f3a39b5a2905f6c109f6fea7
     /**
      * get all real coordinates of hexagons by invisible dots
      */
     @FXML
     public void getRealCoor() {
-<<<<<<< HEAD
         ObservableList<Node> dots = invisibleDots.getChildren();
-=======
-        ObservableList <Node> dots = invisibleDots.getChildren();
->>>>>>> 5915fa2dfb307027f3a39b5a2905f6c109f6fea7
         // get all coordinate
         for(int i=0; i<61; ++i) {
             realCoors[i][0] = dots.get(i).getLayoutX();
             realCoors[i][1] = dots.get(i).getLayoutY();
-<<<<<<< HEAD
             //System.out.println("x: "+realCoors[i][0]+" y: "+realCoors[i][1]);
-=======
-            System.out.println("x: "+realCoors[i][0]+" y: "+realCoors[i][1]);
->>>>>>> 5915fa2dfb307027f3a39b5a2905f6c109f6fea7
         }
 
     }
@@ -110,10 +94,6 @@ public class HelloController {
         }
         storeCoordinates();
         getRealCoor();
-<<<<<<< HEAD
-=======
-
->>>>>>> 5915fa2dfb307027f3a39b5a2905f6c109f6fea7
     }
 
     /**
@@ -291,11 +271,10 @@ public class HelloController {
         Label labelOut = checkLabel(out - 1);
 
         ArrayList<Color> colours = new ArrayList<>(List.of(
-                Color.SLATEGREY, Color.LIGHTCORAL, Color.TEAL, Color.MISTYROSE, Color.FORESTGREEN, Color.DARKRED,
-                Color.SILVER, Color.WHEAT, Color.SPRINGGREEN, Color.POWDERBLUE, Color.GOLD, Color.MEDIUMORCHID,
-                Color.KHAKI, Color.LIGHTCYAN, Color.CYAN, Color.THISTLE, Color.STEELBLUE, Color.LIGHTSALMON,
-                Color.DARKVIOLET, Color.DARKSEAGREEN, Color.CORNFLOWERBLUE, Color.PEACHPUFF, Color.OLIVEDRAB,
-                Color.NAVY, Color.MAROON, Color.LEMONCHIFFON, Color.PINK));
+                Color.SLATEGREY, Color.TEAL, Color.FORESTGREEN, Color.DARKRED,
+                Color.MEDIUMORCHID, Color.THISTLE, Color.STEELBLUE,
+                Color.DARKSEAGREEN, Color.OLIVEDRAB,
+                Color.NAVY, Color.MAROON, Color.PINK));
 
         try {
             Color backgroundColour = colours.get(colourIndex);
