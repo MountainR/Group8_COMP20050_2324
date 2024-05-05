@@ -3,6 +3,6 @@ module test.demo {
     requires javafx.fxml;
 
 
-    opens test.demo to javafx.fxml;
-    exports test.demo;
+    opens blackbox to javafx.fxml;
+    exports blackbox;
 }
